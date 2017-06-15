@@ -1,0 +1,52 @@
+.game-container {
+    margin-top: 40px;
+    position: relative;
+    padding: 15px;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -ms-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -ms-touch-action: none;
+    touch-action: none;
+    background: #bbada0;
+    border-radius: 6px;
+    width: 500px;
+    height: 500px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.grid-container {
+    position: absolute;
+    z-index: 1;
+}
+
+.grid-row {
+    margin-bottom: 10px;
+}
+
+.grid-row:last-child {
+    margin-bottom: 0;
+}
+
+.grid-row:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.grid-cell {
+    width: 57.5px;
+    height: 57.5px;
+    margin-right: 10px;
+    float: left;
+    border-radius: 3px;
+    background: rgba(238, 228, 218, 0.35);
+}
+
+.grid-cell:last-child {
+    margin-right: 0;
+}
