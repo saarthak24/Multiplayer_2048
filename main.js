@@ -10,6 +10,9 @@ var fontSize;
 var loss = false;
 startGame();
 
+var socket = io()
+
+
 startButton.onclick = function () {
   if(!loss){
     console.log(sizeInput.value);
@@ -78,12 +81,16 @@ document.onkeydown = function (event) {
   if (!loss) {
     if (event.keyCode === 38 || event.keyCode === 87) {
       moveUp(); 
+      socket.emit('updateMove', cells)
     } else if (event.keyCode === 39 || event.keyCode === 68) {
       moveRight();
+      socket.emit('updateMove', cells)
     } else if (event.keyCode === 40 || event.keyCode === 83) {
       moveDown(); 
+      socket.emit('updateMove', cells)
     } else if (event.keyCode === 37 || event.keyCode === 65) {
-      moveLeft(); 
+      moveLeft();
+      socket.emit('updateMove', cells) 
     }
     scoreLabel.innerHTML = 'Score : ' + score;
   }
