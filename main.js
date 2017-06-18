@@ -48,43 +48,44 @@ function drawCell(cell) {
     ctx.rect(cell.x, cell.y, width, width);
     switch (cell.value) {
         case 0:
-            ctx.fillStyle = '#A9A9A9';
+            ctx.fillStyle = '#CDC1B4';
             break;
         case 2:
-            ctx.fillStyle = '#faf8ef';
-            break;
-        case 4:
             ctx.fillStyle = '#eee4da';
             break;
+        case 4:
+            ctx.fillStyle = '#ede0c8';
+            break;
         case 8:
-            ctx.fillStyle = '#ffbf00';
+
+            ctx.fillStyle = '#f2b179';
             break;
         case 16:
-            ctx.fillStyle = '#bfff00';
+            ctx.fillStyle = '#f59563';
             break;
         case 32:
-            ctx.fillStyle = '#40ff00';
+            ctx.fillStyle = '#f67c5f';
             break;
         case 64:
-            ctx.fillStyle = '#00bfff';
+            ctx.fillStyle = '#f65e3b';
             break;
         case 128:
-            ctx.fillStyle = '#FF7F50';
+            ctx.fillStyle = '#edcf72';
             break;
         case 256:
-            ctx.fillStyle = '#0040ff';
+            ctx.fillStyle = '#edcc61';
             break;
         case 512:
-            ctx.fillStyle = '#ff0080';
+            ctx.fillStyle = '#edc850';
             break;
         case 1024:
-            ctx.fillStyle = '#D2691E';
+            ctx.fillStyle = '#edc53f';
             break;
         case 2048:
             ctx.fillStyle = '#FF7F50';
             break;
         case 4096:
-            ctx.fillStyle = '#ffbf00';
+            ctx.fillStyle = '#edc22e';
             break;
         default:
             ctx.fillStyle = '#ff0080';
@@ -107,17 +108,16 @@ document.onkeydown = function(event) {
     if (!loss) {
         if (event.keyCode === 38 || event.keyCode === 87) {
             moveUp();
-            socket.emit('updateMove', cells);
         } else if (event.keyCode === 39 || event.keyCode === 68) {
             moveRight();
-            socket.emit('updateMove', cells);
         } else if (event.keyCode === 40 || event.keyCode === 83) {
             moveDown();
-            socket.emit('updateMove', cells);
         } else if (event.keyCode === 37 || event.keyCode === 65) {
             moveLeft();
-            socket.emit('updateMove', cells);
         }
+        socket.emit("updateMove", {
+            currentState: cells
+        })
         scoreLabel.innerHTML = 'Score : ' + score;
     }
 }

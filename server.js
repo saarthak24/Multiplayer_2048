@@ -1,25 +1,24 @@
-var express = require("express")
+var express = require("express");
 var app = express();
-var http = require("http").Server(app)
-var io = require("socket.io")(http)
+var server = app.listen(3000);
+console.log('Listening on 3000')
+console.log('http://localhost:3000/')
+var io = require('socket.io').listen(server);
 var bodyParser = require('body-parser')
 var playerCount = 0;
 //app.use(bodyParser())
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html')
+app.get("/", function(request, response) {
+    response.sendFile('index.html', {
+        root: __dirname
+    })
 })
 
-http.listen(3000, function() {
-    console.log('Listening on 3000')
-    console.log('http://localhost:3000/')
-    app.use(express.static(__dirname + '/files'));
-})
+app.use('/', express.static(__dirname))
 
-io.on('connection', function(socket) {
-    playerCount++;
-    console.log(playerCount)
-    socket.on('scoreUpdate', function(data) {
-        console.log(data)
-    });
+io.on("connection", function(socket) {
+    console.log('Successfully Loaded')
+    if (playerCount <= 2) {
+        playerCount++;
+    }
 })
