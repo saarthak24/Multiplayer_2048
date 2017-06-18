@@ -1,3 +1,4 @@
+var socket = io();
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var startButton = document.getElementById('start-button');
@@ -9,8 +10,6 @@ var cells = [];
 var fontSize;
 var loss = false;
 startGame();
-
-var socket = io();
 
 startButton.onclick = function() {
     if (!loss) {
