@@ -30,6 +30,20 @@
         <canvas id="canvas" width="500" height="500"></canvas>
     </div>
 
+    <div id="results"> HIGH SCORES
+        <table id="resTable" class="table table-hover table-striped">
+            <thead class="thead">
+                <tr>
+                    <th width="50%">Name</th>
+                    <th width="50%">Score</th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+
+            </tbody>
+        </table>
+    </div>
+
     <p class="game-explanation">
         <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
     </p>
@@ -38,6 +52,7 @@
         Created by <strong>Saarthak Sethi & Yash Bolisetty</strong>. Based on <a href="http://gabrielecirulli.github.io/2048/" target="_blank">2048 by Gabriele Cirulli</a>
     </p>
 </body>
-<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 <script src="main.js"></script>
+
 </html>
