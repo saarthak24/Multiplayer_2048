@@ -18,6 +18,12 @@ socket.on("highScores", function(data) {
     $("#resTable tbody").append(row);
 })
 
+socket.on('fromserver', function(data){
+    //if(data.newscore!=score){
+       // $("#opp_score").html(data.newscore)
+        console.log(data.newscore)
+      // } 
+})
 function submitScore() {
     name = $("#nameInput").val();
     socket.emit("score", {
@@ -130,7 +136,7 @@ document.onkeydown = function(event) {
             moveLeft();
         }
         socket.emit("updateMove", {
-            currentState: cells
+            myScore: score
         })
         scoreLabel.innerHTML = 'Score : ' + score;
     }

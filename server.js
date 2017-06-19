@@ -39,7 +39,14 @@ io.on("connection", function(socket) {
             });
         }
     })
-
+    socket.on('updateMove', function (data) {
+        socket.emit("fromserver", {
+            newscore: data.score
+        })
+        socket.broadcast.emit("fromserver", {
+            newscore: data.score
+        })
+    })
     socket.on("score", function(data) {
         if (scoreOne == null && nameOne == null) {
             scoreOne = data.score;
