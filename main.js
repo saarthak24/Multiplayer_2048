@@ -15,15 +15,7 @@ startGame();
 socket.on("highScores", function(data) {
     var row = $("<tr>");
     row.append($("<td>" + data.sqlName + "</td>")).append($("<td>" + data.sqlScore + "</td>"));
-    var a = $('td:first', row.parents('tr')).text();
-    var b = $('td:first', row.prev().parents('tr')).text();
-    if (b != null) {
-        if (a.toLowerCase() != b.toLowerCase()) {
-            $("#resTable tbody").append(row);
-        }
-    } else {
-        $("#resTable tbody").append(row);
-    }
+    $("#resTable tbody").append(row);
 })
 
 function restart() {
@@ -147,10 +139,15 @@ function startGame() {
 function finishGame() {
     canvas.style.opacity = '0.1';
     loss = true;
-    socket.emit("score", {
-        score: score,
-        name: name
-    })
+    $("#myModal").modal();
+    $("#submitButton").onclick = function() {
+        name = $("#nameInput").val();
+        console.log(name);
+        socket.emit("score", {
+            score: score,
+            name: name
+        })
+    };
     restartButton.style.visibility = "visible";
     alert("You lost! Your final score was: " + score + " !")
 }

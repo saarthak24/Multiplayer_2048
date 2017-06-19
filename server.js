@@ -44,14 +44,24 @@ io.on("connection", function(socket) {
         if (scoreOne == null && nameOne == null) {
             scoreOne = data.score;
             nameOne = data.name;
-            console.log(scoreOne + nameOne);
             db.run("INSERT INTO HighScores(score, name) VALUES(?, ?);", [scoreOne, nameOne]);
         } else {
             scoreTwo = data.score;
             nameTwo = data.name;
-            console.log(scoreOne + nameOne);
             db.run("INSERT INTO HighScores(score, name) VALUES(?, ?);", [scoreTwo, nameTwo]);
         }
+        db.each("SELECT * FROM HighScores", function(err, row) {
+            if (!err) {
+                socket.emit("highScores", {
+                    sqlScore: row.score,
+                    sqlName: row.name,
+                });
+                socket.broadcast.emit("highScores", {
+                    sqlScore: row.score,
+                    sqlName: row.name,
+                });
+            }
+        })
     })
 
 });
