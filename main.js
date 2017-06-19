@@ -12,7 +12,7 @@ var loss = false;
 var name = "";
 startGame();
 
-var curTime = 10;
+var curTime = 60;
 var timer;
 
 socket.on("highScores", function(data) {
@@ -21,12 +21,13 @@ socket.on("highScores", function(data) {
     $("#resTable tbody").append(row);
 })
 
-socket.on('fromserver', function(data){
-        console.log(data.newscore)
+socket.on('fromserver', function(data) {
+    console.log(data.newscore)
 })
+
 function start() {
     clearInterval(timer);
-    curTime = 10;
+    curTime = 60;
     startTimer();
 };
 
@@ -37,7 +38,7 @@ function stop() {
 
 function stopTimer() {
     clearInterval();
-    curTime = 10;
+    curTime = 60;
 }
 
 function startTimer() {
@@ -49,12 +50,13 @@ function decreaseTime() {
     curTime--;
     if (curTime < 0) {
         stop();
-        alert("Time is Up! Your final score was: "+score)
+        alert("Time is Up! Your final score was: " + score)
         finishGame();
-        } else {
+    } else {
         document.getElementById("timer").innerHTML = "Time Left: " + curTime.toString() + " seconds";
     }
 }
+
 function submitScore() {
     name = $("#nameInput").val();
     socket.emit("score", {
@@ -158,12 +160,16 @@ function canvasClean() {
 document.onkeydown = function(event) {
     if (!loss) {
         if (event.keyCode === 38 || event.keyCode === 87) {
+            event.preventDefault();
             moveUp();
         } else if (event.keyCode === 39 || event.keyCode === 68) {
+            event.preventDefault();
             moveRight();
         } else if (event.keyCode === 40 || event.keyCode === 83) {
+            event.preventDefault();
             moveDown();
         } else if (event.keyCode === 37 || event.keyCode === 65) {
+            event.preventDefault();
             moveLeft();
         }
         socket.emit("updateMove", {
@@ -187,7 +193,7 @@ function finishGame() {
     loss = true;
     $("#myModal").modal();
     restartButton.style.visibility = "visible";
-    alert("You lost! Your final score was: " + score + " !")
+    alert("Game over! Your final score was: " + score + " !")
     stop()
 }
 
