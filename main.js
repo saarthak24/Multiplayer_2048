@@ -1,7 +1,7 @@
 var socket = io();
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var startButton = document.getElementById('start-button');
+var restartButton = document.getElementById('restart-button');
 var scoreLabel = document.getElementById('score');
 var score = 0;
 var size = 4;
@@ -11,7 +11,7 @@ var fontSize;
 var loss = false;
 startGame();
 
-startButton.onclick = function() {
+function restart() {
     if (!loss) {
         console.log(sizeInput.value);
         canvasClean();
@@ -122,6 +122,7 @@ document.onkeydown = function(event) {
 }
 
 function startGame() {
+    restartButton.style.visibility = "hidden";
     createCells();
     drawAllCells();
     pasteNewCell();
@@ -131,6 +132,7 @@ function startGame() {
 function finishGame() {
     canvas.style.opacity = '0.1';
     loss = true;
+    restartButton.style.visibility = "visible";
     alert("You lost! Your final score was: " + score + " !")
 }
 
