@@ -12,6 +12,9 @@ var loss = false;
 var name = "";
 startGame();
 
+var curTime = 10;
+var timer;
+
 socket.on("highScores", function(data) {
     var row = $("<tr>");
     row.append($("<td>" + data.sqlName + "</td>")).append($("<td>" + data.sqlScore + "</td>"));
@@ -19,11 +22,39 @@ socket.on("highScores", function(data) {
 })
 
 socket.on('fromserver', function(data){
-    //if(data.newscore!=score){
-       // $("#opp_score").html(data.newscore)
         console.log(data.newscore)
-      // } 
 })
+function start() {
+    clearInterval(timer);
+    curTime = 10;
+    startTimer();
+};
+
+function stop() {
+    clearInterval(timer);
+    stopTimer();
+};
+
+function stopTimer() {
+    clearInterval();
+    curTime = 10;
+}
+
+function startTimer() {
+    timer = setInterval(decreaseTime, 1000)
+    document.getElementById("timer").innerHTML = "Time Left: " + curTime.toString() + " seconds";
+}
+
+function decreaseTime() {
+    curTime--;
+    if (curTime < 0) {
+        stop();
+        alert("Time is Up! Your final score was: "+score)
+        finishGame();
+        } else {
+        document.getElementById("timer").innerHTML = "Time Left: " + curTime.toString() + " seconds";
+    }
+}
 function submitScore() {
     name = $("#nameInput").val();
     socket.emit("score", {
@@ -148,6 +179,7 @@ function startGame() {
     drawAllCells();
     pasteNewCell();
     pasteNewCell();
+    start()
 }
 
 function finishGame() {
@@ -156,6 +188,7 @@ function finishGame() {
     $("#myModal").modal();
     restartButton.style.visibility = "visible";
     alert("You lost! Your final score was: " + score + " !")
+    stop()
 }
 
 function drawAllCells() {
