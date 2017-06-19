@@ -18,6 +18,14 @@ socket.on("highScores", function(data) {
     $("#resTable tbody").append(row);
 })
 
+function submitScore() {
+    name = $("#nameInput").val();
+    socket.emit("score", {
+        score: score,
+        name: name
+    })
+};
+
 function restart() {
     if (!loss) {
         console.log(sizeInput.value);
@@ -140,14 +148,6 @@ function finishGame() {
     canvas.style.opacity = '0.1';
     loss = true;
     $("#myModal").modal();
-    $("#submitButton").onclick = function() {
-        name = $("#nameInput").val();
-        console.log(name);
-        socket.emit("score", {
-            score: score,
-            name: name
-        })
-    };
     restartButton.style.visibility = "visible";
     alert("You lost! Your final score was: " + score + " !")
 }
