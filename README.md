@@ -1,4 +1,4 @@
-## Multiplayer_2048
+# Multiplayer_2048
 ## Compete with your friends! See if you can outlast and outscore your opponent in 2048!
 
 This fun web app was created using HTML, CSS, and JavaScript (Node.js, Express, Socket.IO, and SQLite).
